@@ -1,4 +1,4 @@
-package com.hilogame.service;
+package com.hilogame.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +10,12 @@ import com.hilogame.model.Outcome;
 import com.hilogame.model.PlayerChoice;
 import com.hilogame.model.card.Card;
 import com.hilogame.model.card.Dealer;
+import com.hilogame.service.GameService;
+import com.hilogame.service.MessageService;
 
 public class HiLoGameService implements GameService {
+	private MessageService messageService;
+	
 	private Dealer dealer;
 
 	public HiLoGameService() {
@@ -31,12 +35,12 @@ public class HiLoGameService implements GameService {
 			Game game = new Game(firstCard, secondCard);
 
 			// 1. Display first card
-			game.sendMessage("displayfirstcard",
+			messageService.sendMessage("displayfirstcard",
 					"First card: " + firstCard.toString());
 
 			// 2. prompt player to guess whether second card is high or low
 			// (H/h/High/high =High, L/l/Low/low = Low)
-			game.sendMessage("promptforhilo", "Is the next card is Hi or Lo?");
+			messageService.sendMessage("promptforhilo", "Is the next card is Hi or Lo?");
 			return game;
 		} catch (NoMoreCardsException e) {
 			throw new IllegalStateException(
@@ -48,8 +52,8 @@ public class HiLoGameService implements GameService {
 	@Override
 	public GameResult endGame(Game game) {
 
-		String choice = game.getMessage("playerchoice");
-		PlayerChoice playerChoice = PlayerChoice.valueOf(choice);
+		Object choice = messageService.readMessage("playerchoice");
+		PlayerChoice playerChoice = PlayerChoice.valueOf(choice.toString());
 
 		PlayerChoice gameResult = game.getResult();
 
@@ -62,16 +66,24 @@ public class HiLoGameService implements GameService {
 
 		switch (gameOutcome) {
 		case Won:
-			game.sendMessage("displayoutcome", "Second Card: "
+			messageService.sendMessage("displayoutcome", "Second Card: "
 					+ game.getSecondCard().toString() + " - You Win!");
 			break;
 		case Lost:
-			game.sendMessage("displayoutcome", "Second Card: "
+			messageService.sendMessage("displayoutcome", "Second Card: "
 					+ game.getSecondCard().toString()
 					+ "- You looser! Better luck next time!");
 			break;
 		}
 
 		return new GameResult(game, playerChoice, gameOutcome);
+	}
+	
+	public MessageService getMessageService() {
+		return messageService;
+	}
+	
+	public void setMessageService(MessageService messageService) {
+		this.messageService = messageService;
 	}
 }

@@ -1,7 +1,7 @@
 package com.hilogame.model;
 
 public class GameResult {
-	private Game game;
+	private final Game game;
 	private final PlayerChoice playerChoice;
 	
 	private final Outcome gameOutcome;
@@ -22,9 +22,5 @@ public class GameResult {
 	
 	public Outcome getGameOutcome() {
 		return gameOutcome;
-	}
-	
-	public String getMessage(){
-		return getGame().getMessage("displayoutcome");
 	}
 }
