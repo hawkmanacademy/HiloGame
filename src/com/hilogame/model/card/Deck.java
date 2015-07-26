@@ -16,7 +16,7 @@ public class Deck {
 
 	public void reset() {
 		cards.clear();
-		for (Suite suite:Suite.values()){
+		for (Suit suite:Suit.values()){
 			for (Rank rank :Rank.values()){
 				Card card = new Card(rank,suite);
 				cards.add(card);

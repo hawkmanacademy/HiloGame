@@ -3,9 +3,9 @@ package com.hilogame.model.card;
 public class Card implements Comparable<Card>{
 	private Rank rank;
 	
-	private Suite suite;
+	private Suit suite;
 	
-	public Card(Rank rank,Suite suite) {
+	public Card(Rank rank,Suit suite) {
 		this.rank = rank;
 		this.suite = suite;
 	}
@@ -18,17 +18,21 @@ public class Card implements Comparable<Card>{
 		this.rank = rank;
 	}
 
-	public Suite getSuite() {
+	public Suit getSuite() {
 		return suite;
 	}
 
-	public void setSuite(Suite suite) {
+	public void setSuite(Suit suite) {
 		this.suite = suite;
+	}
+	
+	public String getImageName(){
+		return suite.getValue() + rank.getValue();
 	}
 	
 	@Override
 	public int compareTo(Card o) {
-		return rank.ordinal() - o.rank.ordinal();
+		return  o.rank.getIntValue() - rank.getIntValue();
 	}
 
 	@Override
