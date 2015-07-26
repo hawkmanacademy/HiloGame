@@ -32,7 +32,8 @@ public class Card implements Comparable<Card>{
 	
 	@Override
 	public int compareTo(Card o) {
-		return  o.rank.getIntValue() - rank.getIntValue();
+		int score = o.rank.getIntValue() - rank.getIntValue();
+		return score;
 	}
 
 	@Override

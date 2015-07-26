@@ -17,23 +17,22 @@ public class HiLoGameCli {
 	static class HiLoGameRunner{
 		private MessageService messageService;
 		
-		private  HiLoGameService hgs ;
+		private  HiLoGameService hiloGameService ;
 		
 		public HiLoGameRunner() {
 			messageService = new InMemoryMessageService();
-			
-			hgs = new HiLoGameService();
-			hgs.setMessageService(messageService);
+			hiloGameService = new HiLoGameService(messageService);
 		}
 		
 		public void run(){
 			Scanner input =  new Scanner(System.in);
 			boolean signal = true;
-			while (signal){
+			
+			do{
 				playGame(input);
 				
 				//6. Prompt the player if they want to play again.
-				System.out.println("Do you want to play another round?");
+				System.out.println("Do you want to play another game?");
 				String quitSignal = input.nextLine();
 				switch(quitSignal.toLowerCase()){
 					case "yes":
@@ -50,11 +49,11 @@ public class HiLoGameCli {
 					default:
 						//ignore and carry on
 				}
-			}
+			}while (signal);
 		}
 		
 		private void playGame(Scanner input) {
-			Game game = hgs.startGame();
+			Game game = hiloGameService.startGame();
 			
 			System.out.println(messageService.readMessage("displayfirstcard"));
 			System.out.println(messageService.readMessage("promptforhilo"));
@@ -63,15 +62,9 @@ public class HiLoGameCli {
 			
 			messageService.sendMessage("playerchoice", playerChoice);
 			
-			GameResult result = hgs.endGame(game);
+			GameResult result = hiloGameService.endGame(game);
 			
 			System.out.println(messageService.readMessage("displayoutcome"));
 		}
 	}
-	
-	
-	
-	
-		
-
 }
