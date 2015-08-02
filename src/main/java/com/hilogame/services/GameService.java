@@ -1,4 +1,4 @@
-package com.hilogame.service;
+package com.hilogame.services;
 
 import com.hilogame.model.Game;
 import com.hilogame.model.GameResult;

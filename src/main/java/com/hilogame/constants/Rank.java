@@ -1,4 +1,4 @@
-package com.hilogame.model.card;
+package com.hilogame.constants;
 
 public enum Rank {
 	Two("2",2),Three("3",3),

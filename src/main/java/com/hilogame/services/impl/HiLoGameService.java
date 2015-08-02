@@ -1,18 +1,18 @@
-package com.hilogame.service.impl;
+package com.hilogame.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hilogame.constants.Outcome;
+import com.hilogame.constants.PlayerChoice;
 import com.hilogame.exception.InvalidPlayerChoiceException;
 import com.hilogame.exception.NoMoreCardsException;
+import com.hilogame.model.Card;
+import com.hilogame.model.Dealer;
 import com.hilogame.model.Game;
 import com.hilogame.model.GameResult;
-import com.hilogame.model.Outcome;
-import com.hilogame.model.PlayerChoice;
-import com.hilogame.model.card.Card;
-import com.hilogame.model.card.Dealer;
-import com.hilogame.service.GameService;
-import com.hilogame.service.MessageService;
+import com.hilogame.services.GameService;
+import com.hilogame.services.MessageService;
 
 public class HiLoGameService implements GameService {
 	private MessageService messageService;
@@ -23,14 +23,15 @@ public class HiLoGameService implements GameService {
 
 	@Override
 	public Game startGame() {
-
-		List<Card> cards = new ArrayList<Card>();
+		Dealer dealer = new Dealer();
 		try {
 			// 0 deal two cards
-			Dealer dealer = new Dealer();
-			cards.addAll(dealer.deal(2));
-			Card firstCard = cards.get(0);
-			Card secondCard = cards.get(1);
+			Card firstCard = dealer.deal();
+			Card secondCard = dealer.deal();
+			if (firstCard.compareTo(secondCard) == 0){
+				//dealt cards are of same rank do deal second card again
+				secondCard = dealer.deal();
+			}
 
 			Game game = new Game(firstCard, secondCard);
 
@@ -61,7 +62,6 @@ public class HiLoGameService implements GameService {
 			playerChoice = PlayerChoice.parse(choice.toString());
 			PlayerChoice gameResult = game.getResult();
 
-			
 			if (gameResult == playerChoice) {
 				gameOutcome = Outcome.Won;
 			} else {
@@ -71,7 +71,6 @@ public class HiLoGameService implements GameService {
 			String outcomeMessage = generateOutcomeMessage(game, gameOutcome);
 
 			messageService.sendMessage("displayoutcome", outcomeMessage);
-
 		} catch (InvalidPlayerChoiceException e) {
 			messageService.sendMessage("displayoutcome",e.getMessage());
 		}

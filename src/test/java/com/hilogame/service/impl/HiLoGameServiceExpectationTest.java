@@ -12,11 +12,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.hilogame.constants.Outcome;
+import com.hilogame.constants.PlayerChoice;
 import com.hilogame.model.Game;
 import com.hilogame.model.GameResult;
-import com.hilogame.model.Outcome;
-import com.hilogame.model.PlayerChoice;
-import com.hilogame.service.MessageService;
+import com.hilogame.services.MessageService;
+import com.hilogame.services.impl.HiLoGameService;
 
 public class HiLoGameServiceExpectationTest {
 	HiLoGameService hlgs;
@@ -47,7 +48,7 @@ public class HiLoGameServiceExpectationTest {
 	public void test() {
 		Executor pool =Executors.newFixedThreadPool(1000);
 		
-		for (int i=0;i<10000000;i++){
+		for (int i=0;i<1000000;i++){
 			pool.execute(new Runnable(){
 
 				@Override

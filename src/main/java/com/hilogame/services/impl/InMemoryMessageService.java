@@ -1,9 +1,9 @@
-package com.hilogame.service.impl;
+package com.hilogame.services.impl;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import com.hilogame.service.MessageService;
+import com.hilogame.services.MessageService;
 
 public class InMemoryMessageService implements MessageService {
 

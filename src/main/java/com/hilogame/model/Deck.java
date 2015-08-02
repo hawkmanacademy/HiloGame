@@ -1,9 +1,11 @@
-package com.hilogame.model.card;
+package com.hilogame.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.hilogame.constants.Rank;
+import com.hilogame.constants.Suit;
 import com.hilogame.exception.NoMoreCardsException;
 
 public class Deck {

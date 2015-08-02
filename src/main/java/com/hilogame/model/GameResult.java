@@ -1,7 +1,11 @@
 package com.hilogame.model;
 
+import com.hilogame.constants.Outcome;
+import com.hilogame.constants.PlayerChoice;
+
 public class GameResult {
 	private final Game game;
+	
 	private final PlayerChoice playerChoice;
 	
 	private final Outcome gameOutcome;

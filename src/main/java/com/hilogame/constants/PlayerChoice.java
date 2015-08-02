@@ -1,4 +1,4 @@
-package com.hilogame.model;
+package com.hilogame.constants;
 
 import com.hilogame.exception.InvalidPlayerChoiceException;
 

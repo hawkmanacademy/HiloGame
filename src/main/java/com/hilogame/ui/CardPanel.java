@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import com.hilogame.model.card.Card;
+import com.hilogame.model.Card;
 
 public class CardPanel extends JPanel {
 	
@@ -29,7 +29,7 @@ public void reset(){
 	}
 	private void setImage(String imageName) {
 		Image image;
-		try {
+		try { 
 			image = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(imageName));
 			SwingUtilities.invokeLater(new Runnable() {
 				@Override

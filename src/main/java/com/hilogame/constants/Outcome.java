@@ -1,4 +1,4 @@
-package com.hilogame.model;
+package com.hilogame.constants;
 
 public enum Outcome {
 	Won, Lost;

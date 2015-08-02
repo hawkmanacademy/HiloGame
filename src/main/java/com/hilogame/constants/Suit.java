@@ -1,4 +1,4 @@
-package com.hilogame.model.card;
+package com.hilogame.constants;
 
 public enum Suit {
 	Clubs("c"),Hearts("h"),Diamonds("d"),Spades("s");

@@ -1,4 +1,7 @@
-package com.hilogame.model.card;
+                      package com.hilogame.model;
+
+import com.hilogame.constants.Rank;
+import com.hilogame.constants.Suit;
 
 public class Card implements Comparable<Card>{
 	private Rank rank;

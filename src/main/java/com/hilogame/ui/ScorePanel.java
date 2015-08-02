@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import com.hilogame.model.card.Card;
+import com.hilogame.model.Card;
 
 public class ScorePanel extends JPanel {
 	JLabel wonLabel;
@@ -27,7 +27,7 @@ public class ScorePanel extends JPanel {
 		add(lostLabel);
 		reset();
 	}
-	public void updateScores(int wins,int losses) {
+	public void updateScores(final int wins,final int losses) {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {

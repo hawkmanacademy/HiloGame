@@ -12,32 +12,31 @@ import javax.swing.JPanel;
 import javax.swing.JWindow;
 import javax.swing.SwingUtilities;
 
+import com.hilogame.constants.Outcome;
+import com.hilogame.constants.PlayerChoice;
+import com.hilogame.constants.Rank;
+import com.hilogame.constants.Suit;
+import com.hilogame.model.Card;
 import com.hilogame.model.Game;
 import com.hilogame.model.GameResult;
-import com.hilogame.model.Outcome;
-import com.hilogame.model.PlayerChoice;
-import com.hilogame.model.card.Card;
-import com.hilogame.model.card.Rank;
-import com.hilogame.model.card.Suit;
-import com.hilogame.service.MessageService;
-import com.hilogame.service.impl.HiLoGameService;
-import com.hilogame.service.impl.InMemoryMessageService;
+import com.hilogame.services.GameService;
+import com.hilogame.services.MessageService;
+import com.hilogame.services.ScoreTrackingService;
+import com.hilogame.services.impl.HiLoGameService;
+import com.hilogame.services.impl.InMemoryMessageService;
+import com.hilogame.services.impl.SimpleScoreTrackingService;
 
 public class HiLoGameUI {
 	private MessageService messageService;
-	private HiLoGameService gameService;
-	private AtomicInteger lossCounter;
-	private AtomicInteger winCounter;
+	private GameService gameService;
+	private ScoreTrackingService scoreTrackingService;
 	
-	
-
 	Game currentGame = null;
 
 	public HiLoGameUI() {
 		messageService = new InMemoryMessageService();
 		gameService = new HiLoGameService(messageService);
-		lossCounter = new AtomicInteger();
-		winCounter = new AtomicInteger();
+		scoreTrackingService = new SimpleScoreTrackingService();
 		
 		currentGame = startGame();
 		final JFrame frame = new JFrame(); // make sure the program exits when
@@ -122,14 +121,14 @@ public class HiLoGameUI {
 		cardPanel.setCard(card);
 		
 		if (result.getGameOutcome() == Outcome.Won){
-			winCounter.incrementAndGet();
+			scoreTrackingService.recordWin();
 		}else{
-			lossCounter.incrementAndGet();
+			scoreTrackingService.recordLoss();
 		}
-		scorePanel.updateScores(winCounter.intValue(), lossCounter.intValue());
+		scorePanel.updateScores(scoreTrackingService.getTotalWins(), scoreTrackingService.getTotalLosses());
 		currentGame = null;
 	}
-
+ 
 	public static void main(String[] args) {
 		new HiLoGameUI();
 	}

@@ -1,6 +1,6 @@
 package com.hilogame.model;
 
-import com.hilogame.model.card.Card;
+import com.hilogame.constants.PlayerChoice;
 
 public class Game {
 	private Card firstCard;
